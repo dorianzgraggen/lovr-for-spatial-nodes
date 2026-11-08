@@ -1932,6 +1932,8 @@ bool lovrHeadsetIsMounted(void) {
   return state.extensions.presence ? state.mounted : true;
 }
 
+static void (*xr_event_callback)(const XrEventDataBuffer*) = NULL;
+
 bool lovrHeadsetPollEvents(void) {
   if (!state.session) return true;
 
@@ -1942,6 +1944,11 @@ bool lovrHeadsetPollEvents(void) {
   bool visibilityMaskDirty = false;
 
   while (xrPollEvent(state.instance, &e) == XR_SUCCESS) {
+    // forward to plugins
+    if (xr_event_callback) {
+        xr_event_callback(&e);
+    }
+
     switch (e.type) {
       case XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED: {
         XrEventDataSessionStateChanged* event = (XrEventDataSessionStateChanged*) &e;
@@ -4532,4 +4539,9 @@ EXPORT uintptr_t xr_get_reference_space(void)
 EXPORT XrTime xr_get_predicted_display_time(void)
 {
     return  state.frameState.predictedDisplayTime;
+}
+
+EXPORT void set_xr_event_callback(void (*callback)(const XrEventDataBuffer*))
+{
+  xr_event_callback = callback;
 }
