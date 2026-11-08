@@ -267,6 +267,18 @@ void os_request_permission(os_permission permission) {
 
     (*state.jni)->CallVoidMethod(state.jni, activity, requestAudioCapturePermission);
   }
+  else if (permission == OS_PERMISSION_USE_SCENE) {
+    jobject activity = state.app->activity->clazz;
+    jclass class = (*state.jni)->GetObjectClass(state.jni, activity);
+    jmethodID requestUseScenePermission = (*state.jni)->GetMethodID(state.jni, class, "requestUseScenePermission", "()V");
+    if (!requestUseScenePermission) {
+      (*state.jni)->DeleteLocalRef(state.jni, class);
+      if (state.onPermissionEvent) state.onPermissionEvent(OS_PERMISSION_USE_SCENE, false);
+      return;
+    }
+
+    (*state.jni)->CallVoidMethod(state.jni, activity, requestUseScenePermission);
+  }
 }
 
 const char* os_get_clipboard_text(void) {

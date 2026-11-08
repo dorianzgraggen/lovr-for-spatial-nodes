@@ -119,6 +119,7 @@ StringEntry lovrMouseMode[] = {
 
 StringEntry lovrPermission[] = {
   [PERMISSION_AUDIO_CAPTURE] = ENTRY("audiocapture"),
+  [PERMISSION_USE_SCENE] = ENTRY("usescene"),
   { 0 }
 };
 
