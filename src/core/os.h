@@ -135,7 +135,8 @@ typedef enum {
 } os_button_action;
 
 typedef enum {
-  OS_PERMISSION_AUDIO_CAPTURE
+  OS_PERMISSION_AUDIO_CAPTURE,
+  OS_PERMISSION_USE_SCENE
 } os_permission;
 
 typedef void fn_quit(void);

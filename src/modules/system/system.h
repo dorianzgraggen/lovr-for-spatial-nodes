@@ -11,7 +11,8 @@ typedef enum {
 } MouseMode;
 
 typedef enum {
-  PERMISSION_AUDIO_CAPTURE
+  PERMISSION_AUDIO_CAPTURE,
+  PERMISSION_USE_SCENE
 } Permission;
 
 bool lovrSystemInit(void);
