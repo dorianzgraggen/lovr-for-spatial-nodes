@@ -4523,3 +4523,13 @@ EXPORT uintptr_t xr_get_system(void) {
 EXPORT uintptr_t xr_get_session(void) {
   return (uintptr_t) state.session;
 }
+
+EXPORT uintptr_t xr_get_reference_space(void)
+{
+    return (uintptr_t) state.referenceSpace;
+}
+
+EXPORT XrTime xr_get_predicted_display_time(void)
+{
+    return  state.frameState.predictedDisplayTime;
+}
